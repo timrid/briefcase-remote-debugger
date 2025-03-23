@@ -22,11 +22,11 @@ def start_debugpy(config: RemoteDebuggerConfig):
         device_app_folder = next((p for p in sys.path if re.search(app_path_mappings["device_sys_path_regex"], p)), None)
         if device_app_folder:
             for app_subfolder_device, app_subfolder_host in zip(app_path_mappings["device_subfolders"], app_path_mappings["host_folders"]):
-                path_mappings.append(str(Path(device_app_folder) / app_subfolder_device), app_subfolder_host)
+                path_mappings.append((str(Path(device_app_folder) / app_subfolder_device), app_subfolder_host))
     if app_packages_path_mappings:
         device_app_packages_folder = next((p for p in sys.path if re.search(app_packages_path_mappings["sys_path_regex"], p)), None)
         if device_app_packages_folder:
-            path_mappings.append(str(Path(device_app_packages_folder)), app_packages_path_mappings["host_folder"])
+            path_mappings.append((str(Path(device_app_packages_folder)), app_packages_path_mappings["host_folder"]))
     
     # When an app is bundled with briefcase "os.__file__" is not set at runtime
     # on some platforms (eg. windows). But debugpy accesses it internally, so it
