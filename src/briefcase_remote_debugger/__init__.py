@@ -1,5 +1,7 @@
 import json
 import os
+import sys
+import traceback
 from typing import TypedDict
 
 REMOTE_DEBUGGER_STARTED = False
@@ -32,8 +34,8 @@ def start_remote_debugger():
         return
 
     print("Found BRIEFCASE_REMOTE_DEBUGGER:")
-    print(json.dumps(config,indent=4))
     config: RemoteDebuggerConfig = json.loads(config)
+    print(json.dumps(config,indent=4))
 
     # Starting selected debugger
     if config["debugger"] == "pdb":
@@ -45,4 +47,9 @@ def start_remote_debugger():
     
 # only start remote debugger on the first import
 if REMOTE_DEBUGGER_STARTED == False:
-    start_remote_debugger()
+    try:
+        start_remote_debugger()
+    except Exception as e:
+        # Show exceiption and stop the whole application when an error occures
+        print(traceback.format_exc())
+        sys.exit(-1)
