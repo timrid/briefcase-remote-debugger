@@ -4,20 +4,22 @@ from typing import TypedDict
 
 REMOTE_DEBUGGER_STARTED = False
 
-class PathMappings(TypedDict):
-    app_folder_device_regex: str
-    app_subfolders_device: list[str]
-    app_subfolders_host: list[str]
+class AppPathMappings(TypedDict):
+    device_sys_path_regex: str
+    device_subfolders: list[str]
+    host_folders: list[str]
 
-    app_packages_folder_device_regex: str
-    app_packages_folder_host: str
-
+class AppPackagesPathMappings(TypedDict):
+    sys_path_regex: str
+    host_folder: str
 
 class RemoteDebuggerConfig(TypedDict):
+    debugger: str
     mode: str  # client / server
     ip: str
     port: int
-    path_mappings: PathMappings
+    app_path_mappings: AppPathMappings | None
+    app_packages_path_mappings: AppPackagesPathMappings | None
 
 def start_remote_debugger():
     global REMOTE_DEBUGGER_STARTED
