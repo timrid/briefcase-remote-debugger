@@ -33,7 +33,7 @@ def start_remote_debugger():
         # If BRIEFCASE_REMOTE_DEBUGGER is not set, this packages does nothing...
         return
 
-    print("Found BRIEFCASE_REMOTE_DEBUGGER:")
+    print("Found BRIEFCASE_REMOTE_DEBUGGER config:")
     config: RemoteDebuggerConfig = json.loads(config)
     print(json.dumps(config,indent=4))
 

@@ -22,12 +22,17 @@ def start_debugpy(config: RemoteDebuggerConfig):
         device_app_folder = next((p for p in sys.path if re.search(app_path_mappings["device_sys_path_regex"], p)), None)
         if device_app_folder:
             for app_subfolder_device, app_subfolder_host in zip(app_path_mappings["device_subfolders"], app_path_mappings["host_folders"]):
-                path_mappings.append((str(Path(device_app_folder) / app_subfolder_device), app_subfolder_host))
+                path_mappings.append((app_subfolder_host, str(Path(device_app_folder) / app_subfolder_device)))
     if app_packages_path_mappings:
         device_app_packages_folder = next((p for p in sys.path if re.search(app_packages_path_mappings["sys_path_regex"], p)), None)
         if device_app_packages_folder:
-            path_mappings.append((str(Path(device_app_packages_folder)), app_packages_path_mappings["host_folder"]))
+            path_mappings.append((app_packages_path_mappings["host_folder"], str(Path(device_app_packages_folder))))
     
+    print("Extracted path mappings:")
+    for idx, p in enumerate(path_mappings):
+        print(f"[{idx}] host =   {p[0]}")
+        print(f"[{idx}] device = {p[1]}")
+
     # When an app is bundled with briefcase "os.__file__" is not set at runtime
     # on some platforms (eg. windows). But debugpy accesses it internally, so it
     # has to be set or an Exception is raised from debugpy.
