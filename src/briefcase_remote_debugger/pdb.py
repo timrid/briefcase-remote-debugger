@@ -38,11 +38,11 @@ def start_pdb(config: RemoteDebuggerConfig):
     port = config["port"]
 
     print(f'''
-Stdio redirector server opened at {{ip}}:{{port}}, waiting for connection...
+Stdio redirector server opened at {ip}:{port}, waiting for connection...
 To connect to stdio redirector use eg.:
-    - telnet {{ip}} {{port}}
-    - nc -C {{ip}} {{port}}
-    - socat readline tcp:{{ip}}:{{port}}
+    - telnet {ip} {port}
+    - nc -C {ip} {port}
+    - socat readline tcp:{ip}:{port}
 ''')
 
     listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
