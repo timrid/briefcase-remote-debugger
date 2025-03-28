@@ -87,6 +87,7 @@ To connect to debugpy using VSCode add the following configuration to launch.jso
 ''')
 
         debugpy.listen((ip, port), in_process_debug_adapter=True)
+        debugpy.wait_for_client()
 
     # Fix path mappings
     if (len(path_mappings) > 0):
